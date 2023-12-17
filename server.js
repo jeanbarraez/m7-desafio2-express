@@ -2,7 +2,7 @@
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
-import userRouter from './routes/cancionesRoutes.js';
+import userRouter from './Routes/cancionesRoutes.js';
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 
