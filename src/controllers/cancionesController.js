@@ -11,7 +11,7 @@ const __dirname = dirname(__filename);
 
 /* const getPahtHtml = (req, res) => {
   try {
-    res.sendFile(__dirname + "/index.html");
+    res.sendFile(__dirname + "../index.html");
   } catch (error) {
     res.status(500).json({ error: "Error solicitud no procesada " });
     console.error("Error del servidor  al procesar la solicitud", error);
@@ -29,8 +29,8 @@ const getAllCanciones = (req, res) => {
     const canciones = JSON.parse(fs.readFileSync("repertorio.json", "utf-8"));
     res.status(200).json(canciones);
   } catch (error) {
-    res.status(500).json({ error: "Error al procesar la solicitud" });
-    console.error("El cliente ingreso una ruta no valida", error);
+    console.error("The user entered the route incorrectly", error);
+    res.status(500).json({ error: "Server problems" });
   }
 };
 
@@ -40,7 +40,7 @@ const createSong = (req, res) => {
     console.log(cancion);
 
     if (!cancion.titulo || !cancion.artista || !cancion.tono) {
-      res.status(400).json({ mensaje: "Tiene que ingresar todo los campos" });
+      res.status(400).json({ mensaje: "You must enter all fields" });
       return;
     }
     const id = uuidv4();
@@ -53,13 +53,50 @@ const createSong = (req, res) => {
 
     canciones.push(idBody);
     fs.writeFileSync("repertorio.json", JSON.stringify(canciones));
-    res.status(201).send("Cancion agregada exitosamente");
+    res.status(201).send("Song added successfully");
   } catch (error) {
-    res.status(500).json({ message: "El recurso no esta disponible" });
+    console.error("The user entered the route incorrectly", error);
+    res.status(500).json({ error: "Server problems" });
+  }
+};
+
+const editSong = (req, res) => {
+  try {
+    const { id } = req.params;
+    const cancion = req.body;
+
+    if (!cancion.titulo || !cancion.artista || !cancion.tono) {
+      res.status(400).json({ mensaje: "You must enter all fields" });
+      return;
+    }
+
+    const canciones = JSON.parse(fs.readFileSync("repertorio.json"));
+    const index = canciones.findIndex((c) => c.id === id);
+    canciones[index] = cancion;
+    fs.writeFileSync("repertorio.json", JSON.stringify(canciones));
+    res.status(201).send("song successfully edit");
+
+  } catch (error) {
+    console.error("The user entered the route incorrectly", error);
+    res.status(500).json({ error: "Server problems" });
+  }
+};
+
+const removeSong = (req, res) => {
+  try {
+    const { id } = req.params;
+    const canciones = JSON.parse(fs.readFileSync("repertorio.json"));
+    const index = canciones.findIndex((c) => c.id == id);
+    canciones.splice(index, 1);
+    fs.writeFileSync("repertorio.json", JSON.stringify(canciones));
+    res.send("song successfully removed");
+  } catch (error) {
+    console.error("The user entered the route incorrectly", error);
+    res.status(500).json({ error: "Server problems" });
   }
 };
 
 
 
-export {getAllCanciones, createSong};
+export {getAllCanciones, createSong, editSong, removeSong};
 // intentamos exportar getPahtHtml  pero este metodo no funciono 

@@ -1,5 +1,5 @@
 import express  from "express";
-import { getAllCanciones,createSong } from "../src/controllers/cancionesController.js";
+import { getAllCanciones,createSong,editSong,removeSong  } from "../src/controllers/cancionesController.js";
 const router = express.Router();
 
 
@@ -10,6 +10,10 @@ Este metodo no funciono
 router.get('/canciones', getAllCanciones );
 
 router.post('/canciones', createSong);
+
+router.put('/canciones/:id', editSong );
+
+router.delete('/canciones/:id', removeSong);
 
 
 

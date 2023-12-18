@@ -5,10 +5,11 @@ import morgan from "morgan";
 import userRouter from './Routes/cancionesRoutes.js';
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+import 'dotenv/config';
 
 //Creacion de instacia&puerto
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 //Middlewares
 app.use(cors());
@@ -24,8 +25,8 @@ app.get("/", (req, res) =>{
   try {
     res.sendFile(__dirname + "/index.html");
   } catch (error) {
-    res.status(500).json({ error: "Error solicitud no procesada " });
     console.error("Error del servidor  al procesar la solicitud", error);
+    res.status(500).json({ error: "Error solicitud no procesada " });
   }
 
 } );
