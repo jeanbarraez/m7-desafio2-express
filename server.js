@@ -3,8 +3,8 @@ import express from "express";
 import cors from "cors";
 import morgan from "morgan";
 import userRouter from './Routes/cancionesRoutes.js';
-import { fileURLToPath } from "url";
-import { dirname } from "path";
+/* import { fileURLToPath } from "url";
+import { dirname } from "path"; */
 import 'dotenv/config';
 
 //Creacion de instacia&puerto
@@ -17,7 +17,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(userRouter);
 
-const __filename = fileURLToPath(import.meta.url);
+/* const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // FrontEnd
@@ -29,7 +29,7 @@ app.get("/", (req, res) =>{
     res.status(500).json({ error: "Error solicitud no procesada " });
   }
 
-} );
+} ); */
   
 
 
