@@ -1,0 +1,9 @@
+La librería dotenv en Node.js se utiliza principalmente para cargar variables de entorno desde un archivo llamado .env en tu aplicación. Este archivo .env suele contener pares clave-valor, donde cada línea representa una variable de entorno y su valor. Por ejemplo:
+
+env
+Copy code
+PORT=3000
+DATABASE_URL=mongodb://localhost:27017/mydatabase
+API_KEY=your-api-key
+
+Cuando utilizas dotenv en tu aplicación, puedes cargar estas variables de entorno en tu script principal para acceder a ellas con process.env. Esto es útil para configurar la aplicación de manera dinámica sin tener que endurecer los valores directamente en tu código fuente.

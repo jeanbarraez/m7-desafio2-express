@@ -1,0 +1,25 @@
+Alba tuvimos problema con la ruta raiz /, con index.html, en el archivo cancionesController.js nos daba error ruta de index.html
+por lo cual no logramos dar con la solucion, por ene lo dejamos en server, pero la verdad no sabriamos como solucionarlo
+yaque ingresamos correctamente el path, saliendo de las carpeta, gracias alba.
+
+res.sendFile(__dirname + "/index.html");
+
+
+
+
+server.js
+ import { fileURLToPath } from "url";
+import { dirname } from "path";
+ /
+
+/ const filename = fileURLToPath(import.meta.url);
+const dirname = dirname(filename);
+
+/* const getPahtHtml = (req, res) => {
+  try {
+    res.sendFile(dirname + "/index.html");
+  } catch (error) {
+    res.status(500).json({ error: "Error solicitud no procesada " });
+    console.error("Error del servidor  al procesar la solicitud", error);
+  }
+}
