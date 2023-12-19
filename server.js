@@ -3,8 +3,6 @@ import express from "express";
 import cors from "cors";
 import morgan from "morgan";
 import userRouter from './Routes/cancionesRoutes.js';
-import { fileURLToPath } from "url";
-import { dirname } from "path";
 import 'dotenv/config';
 
 //Creacion de instacia&puerto
@@ -17,21 +15,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(userRouter);
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-// FrontEnd
-app.get("/", (req, res) =>{
-  try {
-    res.sendFile(__dirname + "/index.html");
-  } catch (error) {
-    console.error("Error del servidor  al procesar la solicitud", error);
-    res.status(500).json({ error: "Error solicitud no procesada " });
-  }
-
-} );
   
-
 
 //Levantando Servidor 
 app.listen(PORT, () => {

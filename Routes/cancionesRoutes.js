@@ -1,11 +1,9 @@
 import express  from "express";
-import { getAllCanciones,createSong,editSong,removeSong  } from "../src/controllers/cancionesController.js";
+import { getPathHtml,getAllCanciones,createSong,editSong,removeSong  } from "../src/controllers/cancionesController.js";
 const router = express.Router();
 
 
-/* router.get('/', getPahtHtml ); 
-Este metodo no funciono 
-*/
+router.get('/', getPathHtml ); 
 
 router.get('/canciones', getAllCanciones );
 

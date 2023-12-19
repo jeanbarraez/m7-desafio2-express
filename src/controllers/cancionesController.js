@@ -2,28 +2,19 @@ import { v4 as uuidv4 } from "uuid";
 import fs from "fs";
 
 
-/* import { fileURLToPath } from "url";
-import { dirname } from "path";
- */
 
-/* const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
-/* const getPahtHtml = (req, res) => {
+//La conexion a la ruta raiz, en este caso html 
+const getPathHtml = (req, res) => {
   try {
-    res.sendFile(__dirname + "../index.html");
+    const html = fs.readFileSync("index.html", "utf-8")
+    res.status(200).send(html)
   } catch (error) {
     res.status(500).json({ error: "Error solicitud no procesada " });
     console.error("Error del servidor  al procesar la solicitud", error);
   }
 }; 
 
-Dudas
-Este metodo no funciono.
-
-
-*/ 
-
+// Leer todas las canciones existente 
 const getAllCanciones = (req, res) => {
   try {
     const canciones = JSON.parse(fs.readFileSync("repertorio.json", "utf-8"));
@@ -34,6 +25,7 @@ const getAllCanciones = (req, res) => {
   }
 };
 
+// post create song
 const createSong = (req, res) => {
   try {
     const cancion = req.body;
@@ -60,6 +52,7 @@ const createSong = (req, res) => {
   }
 };
 
+// put editsong
 const editSong = (req, res) => {
   try {
     const { id } = req.params;
@@ -72,7 +65,10 @@ const editSong = (req, res) => {
 
     const canciones = JSON.parse(fs.readFileSync("repertorio.json"));
     const index = canciones.findIndex((c) => c.id === id);
-    canciones[index] = cancion;
+    canciones[index] = {
+      id,
+      ...cancion
+    };
     fs.writeFileSync("repertorio.json", JSON.stringify(canciones));
     res.status(201).send("song successfully edit");
 
@@ -82,6 +78,7 @@ const editSong = (req, res) => {
   }
 };
 
+// delete song
 const removeSong = (req, res) => {
   try {
     const { id } = req.params;
@@ -98,5 +95,4 @@ const removeSong = (req, res) => {
 
 
 
-export {getAllCanciones, createSong, editSong, removeSong};
-// intentamos exportar getPahtHtml  pero este metodo no funciono 
+export {getAllCanciones, createSong, editSong, removeSong,getPathHtml};
